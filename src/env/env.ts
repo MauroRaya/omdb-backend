@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsPort } from 'class-validator';
 
 export class EnvironmentVariables {
   @IsNotEmpty()
@@ -6,4 +6,7 @@ export class EnvironmentVariables {
 
   @IsNotEmpty()
   OMDB_API_KEY: string;
+
+  @IsPort()
+  PORT: number;
 }
