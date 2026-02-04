@@ -3,8 +3,8 @@ import { EnvService } from 'src/env/env.service';
 import { HttpService } from '@nestjs/axios';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { FetchByTitleDTO } from './dto/fetch-by-title.dto';
-import { AxiosResponse } from 'axios';
 import { lastValueFrom } from 'rxjs';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class OmdbService {
