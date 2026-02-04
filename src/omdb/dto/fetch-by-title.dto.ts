@@ -1,4 +1,4 @@
-import { MovieRating } from "./movie-rating.dto";
+import { MovieRating } from './movie-rating.dto';
 
 export interface FetchByTitleDTO {
   Title: string;
