@@ -10,7 +10,7 @@ import { validate } from './env/env.validate';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      validate
+      validate,
     }),
     EnvModule,
     OmdbModule,

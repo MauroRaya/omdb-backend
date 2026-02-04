@@ -5,10 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [
-    HttpModule,
-    CacheModule.register(),
-  ],
+  imports: [HttpModule, CacheModule.register()],
   providers: [OmdbService],
   controllers: [OmdbController],
 })

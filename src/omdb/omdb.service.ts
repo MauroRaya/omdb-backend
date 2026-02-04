@@ -9,7 +9,7 @@ export class OmdbService {
   constructor(
     private readonly envService: EnvService,
     private readonly httpService: HttpService,
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
 
   async fetchByTitle(title: string) {
@@ -21,9 +21,11 @@ export class OmdbService {
     const apiBaseUrl = this.envService.get<string>('OMDB_API_BASE_URL');
     const apiKey = this.envService.get<string>('OMDB_API_KEY');
 
-    const { data } = await lastValueFrom(
+    const response = await lastValueFrom(
       this.httpService.get(`${apiBaseUrl}/?apikey=${apiKey}&t=${title}`),
-    ) ?? {};
+    );
+
+    const { data } = response;
 
     await this.cacheManager.set(title, data, 1000 * 60 * 5);
     return data;
