@@ -1,8 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EnvService } from 'src/env/env.service';
 import { HttpService } from '@nestjs/axios';
-import { lastValueFrom } from 'rxjs';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { FetchByTitleDTO } from './dto/fetch-by-title.dto';
+import { AxiosResponse } from 'axios';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class OmdbService {
@@ -12,8 +14,9 @@ export class OmdbService {
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
 
-  async fetchByTitle(title: string) {
-    const value = await this.cacheManager.get(title);
+  async fetchByTitle(title: string): Promise<FetchByTitleDTO> {
+    const value: FetchByTitleDTO | undefined =
+      await this.cacheManager.get(title);
     if (value) {
       return value;
     }
@@ -21,11 +24,12 @@ export class OmdbService {
     const apiBaseUrl = this.envService.get<string>('OMDB_API_BASE_URL');
     const apiKey = this.envService.get<string>('OMDB_API_KEY');
 
-    const response = await lastValueFrom(
-      this.httpService.get(`${apiBaseUrl}/?apikey=${apiKey}&t=${title}`),
+    const request = this.httpService.get(
+      `${apiBaseUrl}/?apikey=${apiKey}&t=${title}`,
     );
+    const response = await lastValueFrom(request);
 
-    const { data } = response;
+    const { data } = response as AxiosResponse<FetchByTitleDTO>;
 
     await this.cacheManager.set(title, data, 1000 * 60 * 5);
     return data;
