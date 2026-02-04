@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { EnvModule } from './env/env.module';
+import { HealthModule } from './health/health.module';
 import { OmdbModule } from './omdb/omdb.module';
 import { validate } from './env/env.validate';
 
@@ -14,6 +15,7 @@ import { validate } from './env/env.validate';
     }),
     EnvModule,
     OmdbModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
