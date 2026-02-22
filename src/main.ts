@@ -5,7 +5,7 @@ import { EnvService } from './env/env.service';
 import { Environment } from './env/env';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   const envService = app.get(EnvService);
 
   const nodeEnv = envService.get<Environment>('NODE_ENV');
