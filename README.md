@@ -1,5 +1,5 @@
-# API de autenticação
-API responsável por autenticação de usuários, construída com TypeScript e NestJS.
+# API do OMDb
+API responsável por consulta de filmes e séries usando a [API do OMDb](https://www.omdbapi.com), construída com TypeScript e NestJS.
 
 ## 📌 Tabela de conteúdo
 * [Tecnologias](#-tecnologias)
